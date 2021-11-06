@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= HtmlService.createHtmlOutputFromFile("styles.css").getContent(); ?>
+  </head>
+  <body>
+   <div id="loader" class="loading">Loading&#8230;</div>
+   <div class="wrapper">  
+         <input type="radio" id="option-2" name="cpd" value="cloud" />
+         <label for="option-2" class="option option-2">
+            <div class="dot"></div>
+              <span>          
+                Cloud
+              </span>
+         </label>
+        <input type="radio" id="option-1" name="cpd" value="onpremise" />
+         <label for="option-1" class="option option-1">
+           <div class="dot"></div>
+            <span>          
+              On premise
+            </span>
+         </label>
+    </div>
+    
+    <div class="container">
+      <barchart>
+        <bar id="cloud" data-value="0" data-label="Cloud" data-tip="0" data-group="1">0</bar>
+        <bar id="onpremise" data-value="0" data-label="On premise" data-tip="0" data-group="1">0</bar>
+      </barchart>
+    </div>
+  </body>
+  <?!= HtmlService.createHtmlOutputFromFile("script.js").getContent(); ?>
+</html>

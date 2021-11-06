@@ -1,0 +1,363 @@
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Lato:400,500,600,700&display=swap');
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+  }
+  html,body{
+    display: grid;
+    height: 100%;
+    place-items: center;
+    background: #0069d9;
+    font-family: 'Lato', sans-serif;
+  }
+  .wrapper{
+    display: inline-flex;
+    background: #fff;
+    height: 100px;
+    width: 500px;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    padding: 20px 15px;
+    box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+  }
+  .wrapper .option{
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 5px;
+    border: 2px solid lightgrey;
+    transition: all 0.3s ease;
+  }
+  .wrapper .option .dot{
+    height: 20px;
+    width: 20px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    position: relative;
+  }
+  .wrapper .option .dot::before{
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background: #0069d9;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1.5);
+    transition: all 0.3s ease;
+  }
+  input[type="radio"]{
+    display: none;
+  }
+  #option-1:checked:checked ~ .option-1,
+  #option-2:checked:checked ~ .option-2{
+    border-color: #0069d9;
+    background: #0069d9;
+  }
+  #option-1:checked:checked ~ .option-1 .dot,
+  #option-2:checked:checked ~ .option-2 .dot{
+    background: #fff;
+  }
+  #option-1:checked:checked ~ .option-1 .dot::before,
+  #option-2:checked:checked ~ .option-2 .dot::before{
+    opacity: 1;
+    transform: scale(1);
+  }
+  .wrapper .option span{
+    font-size: 20px;
+    color: #808080;
+  }
+  #option-1:checked:checked ~ .option-1 span,
+  #option-2:checked:checked ~ .option-2 span{
+    color: #fff;
+  }    
+  
+  * {
+    color: #ffffff;
+    font-size: 1em;
+    font-family: "Lato", sans-serif;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  *::before, *::after {
+    box-sizing: border-box;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  barchart {
+    position: relative;
+    width: 500px;
+    height: 380px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0%;
+    border-radius: 5px;
+    font-size: 0.8em;
+    margin-top: -0.5em;
+  }
+  
+  barchart::before {
+    content: attr(data-title);
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 3% 10% 0 10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1em;
+  }
+  
+  legend {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16%;
+    height: auto;
+    padding: 5px;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    margin: 2%;
+  }
+  
+  item[data-group] {
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+    font-size: 1em;
+    white-space: pre;
+    position: relative;
+    display: block;
+  }
+  item[data-group][data-group="1"] {
+    color: #fff;
+  }
+  item[data-group][data-group="2"] {
+    color: #fff;
+  }
+  item[data-group]::before {
+    font-family: "Font Awesome 5 Free";
+    content: " ";
+  }
+  
+  bar[data-value] {
+    position: relative;
+    flex: 1;
+    padding: 0 0.25em;
+    margin: 0 0.25em;
+    text-align: center;
+    border-radius: 5px;
+    background: #999999;
+  }
+  bar[data-value]:hover {
+    opacity: 0.6;
+  }
+  bar[data-value][data-value="0"] {
+    height: 6%;
+  }
+  /*bar[data-value][data-value="1"] {
+    height: calc(100% / 5 * 1);
+  }
+  bar[data-value][data-value="2"] {
+    height: calc(100% / 5 * 2);
+  }
+  bar[data-value][data-value="3"] {
+    height: calc(100% / 5 * 3);
+  }
+  bar[data-value][data-value="4"] {
+    height: calc(100% / 5 * 4);
+  }*/
+  
+  bar[data-group="1"] {
+    background: #00bcc5;
+  }
+  bar[data-group="2"] {
+    background: #d8c273;
+  }
+  
+  bar[data-label]::after {
+    content: attr(data-label);
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 1.2em;
+  }
+  
+  bar[data-tip]::before {
+    content: attr(data-tip);
+    position: absolute;
+    left: 50%;
+    bottom: 105%;
+    opacity: 0;
+    transform: translateX(-50%);
+    background: #999999;
+    padding: 0.2em;
+    border-radius: 3px;
+  }
+  
+    bar[data-tip]:hover::before {
+    opacity: 1;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media screen and (max-width: 736px) {
+    body{
+      width:100%;
+    }
+    body .wrapper, body barchart, body .container {
+      width: 95%;
+    }
+  
+    body .wrapper .option span{
+      font-size: 1.1em;        
+    }
+  }
+
+ .loading {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  /* Transparent Overlay */
+  .loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgb(20, 20, 20,.5), rgba(20, 20, 20, .5));
+    background: -webkit-radial-gradient(rgb(20, 20, 20,.5), rgba(20, 20, 20,.5));
+  }
+
+  /* :not(:required) hides these rules from IE9 and below */
+  .loading:not(:required) {
+    /* hide "loading..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+    display: block;
+  }
+
+  .loading:not(:required):after {
+    content: '';
+    display: block;
+    font-size: 10px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 1500ms infinite linear;
+    -moz-animation: spinner 1500ms infinite linear;
+    -ms-animation: spinner 1500ms infinite linear;
+    -o-animation: spinner 1500ms infinite linear;
+    animation: spinner 1500ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+  }
+
+  /* Animation */
+
+  @-webkit-keyframes spinner {
+    0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+  }
+  @-moz-keyframes spinner {
+    0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes spinner {
+    0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+  }
+  @keyframes spinner {
+    0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+  }
+
+
+
+</style>
+  
+  
